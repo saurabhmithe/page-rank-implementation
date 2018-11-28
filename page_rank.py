@@ -1,40 +1,93 @@
 import networkx as nx
 import operator
 import matplotlib.pyplot as plt
+from networkx import spring_layout
+from networkx import draw_networkx_edges
 
-# --------------------------------------- CONFIGURABLE PARAMETERS -------------------------------------------------- #
+# --------------------------------------- CONFIGURABLE PARAMETERS --------------------------------------------------- #
 
-maximum_iterations = 150  # (integer) maximum number of iterations in case values do not converge normally
-beta = 0.85  # (float) damping parameter to make random jumps in case of dead-ends or spider-traps
-personalized_page_rank = False  # (boolean) flag to toggle between personalized and non-personalized page rank
-vector_set = {}  # (dictionary k: node v: personalization) used for personalized page rank
-max_error = 0.000001  # (float) maximum error tolerated when checking for convergence
+# (integer) maximum number of iterations in case values do not converge normally
+maximum_iterations = 150
 
-current_dataset_file = "wiki-Vote.txt"
+# (float) damping parameter to make random jumps in case of dead-ends or spider-traps
+beta = 0.85
 
-# Returns a dictionary the page rank of the nodes in the graph
+# (boolean) flag to toggle between personalized and non-personalized page rank
+personalized_page_rank = True
+
+# (dictionary key: node value: personalization) used for personalized page rank
+vector_set = {}
+
+# (float) maximum error tolerated per node when checking for convergence
+max_error = 0.000001
+
+# data set file to be used
+current_data_set_file = "data.txt"
+
+# (string) category for personalized page rank
+custom_category = 'students'
+
+# -------------------------------------------- DATA-SET OPERATIONS -------------------------------------------------- #
+
+categorized_web_pages = {}
+
+
+# The create_categories_from_data_set() reads the data set and categorize the web pages into different sub-domains
+# such as 'academics', 'admissions', etc.
+
+# The data is stored in the dictionary 'categorized_web_pages' with category name as key and web-page ids as values.
+
+
+def create_categories_from_data_set():
+    with open('labels.txt') as textFile:
+        for line in textFile:
+            url = line.split(' ')
+            domain = url[1][7:11]
+            if domain == 'www1':
+                rest = url[1][24:]
+            else:
+                rest = url[1][23:]
+            category = rest[:rest.find('/')].lower()
+            if category == '':
+                continue
+            if category in categorized_web_pages.keys():
+                categorized_web_pages[category].append(url[0])
+            else:
+                categorized_web_pages.update({category: [url[0]]})
+
+
+# -------------------------------------------- PAGE-RANK ALGORITHM -------------------------------------------------- #
+
+# The calculate_page_rank() returns a dictionary the page rank of the nodes in the graph
 # graph - a directed networkx graph created from the edge list of the network present in the data-set file
 
 
 def calculate_page_rank(graph, weight='weight'):
-
     # ---------------------------------- CREATING INITIAL MATRICES -------------------------------------------------- #
 
     # Create a stochastic matrix where the column adds up to 1
     # Make a copy of the graph rather than modifying the original graph
     # Edge weight is 1 (non-weighted edges)
-    stochastic = nx.stochastic_graph(graph, copy=True)
+    stochastic = nx.stochastic_graph(graph, copy=True)  # Directed Graph
     no_of_nodes = stochastic.number_of_nodes()
 
     # ----------------------------- CONFIGURATION FOR PERSONALIZED PAGE RANK ---------------------------------------- #
 
-    # starting page-rank for each node is 1
-    current_matrix = dict.fromkeys(stochastic, 1.0 / no_of_nodes)
+    # starting page-rank for each node is 1 / no. of nodes
+    rank_vector = dict.fromkeys(stochastic, 1.0 / no_of_nodes)
 
     if not personalized_page_rank:
-        # Assign uniform personalization vector
+        # Keep personalized rank values the same as rank vector values
         personalization_values = dict.fromkeys(stochastic, 1.0 / no_of_nodes)
     else:
+        # Make personalized rank values equal to the stochastic values of pages in the mentioned category
+        for i in range(1, 6013):
+            vector_set.update({str(i): 0})
+        docs = categorized_web_pages[custom_category]
+
+        for ele in docs:
+            vector_set[ele] = 1 / len(categorized_web_pages[custom_category])
+
         if set(graph) - set(vector_set):
             print('Personalized set not structured completely. Exiting.')
             exit(0)
@@ -50,29 +103,28 @@ def calculate_page_rank(graph, weight='weight'):
 
     # start iterations to calculate page ranks
     for iteration in range(maximum_iterations):
-        previous_matrix = current_matrix
-        current_matrix = dict.fromkeys(previous_matrix.keys(), 0)
+        previous_rank_vector = rank_vector
+        rank_vector = dict.fromkeys(previous_rank_vector.keys(), 0)
+        dangle_sum = beta * sum(previous_rank_vector[n] for n in dangling_nodes)
 
-        danglesum = beta * sum(previous_matrix[n] for n in dangling_nodes)
-
-        for n in current_matrix:
+        for n in rank_vector:
             # calculate the current matrix as a product of previous state matrix and stochastic matrix
 
-            for nbr in stochastic[n]:
-                current_matrix[nbr] += beta * previous_matrix[n] * stochastic[n][nbr][weight]
+            for j in stochastic[n]:
+                rank_vector[j] += beta * previous_rank_vector[n] * stochastic[n][j][weight]
 
-            # random surfing step
-            current_matrix[n] += danglesum * dangling_weights[n] + (1.0 - beta) * personalization_values[n]
+            # random surfing step to either jump or move forward
+            rank_vector[n] += dangle_sum * dangling_weights[n] + (1.0 - beta) * personalization_values[n]
 
         # ---------------------------------- CHECK CONVERGENCE IN EACH ITERATION ------------------------------------ #
 
         total_diff = []
-        for n in current_matrix:
-            total_diff.append(abs(current_matrix[n] - previous_matrix[n]))
-            total_error = sum(total_diff)
+        for n in rank_vector:
+            total_diff.append(abs(rank_vector[n] - previous_rank_vector[n]))
+        total_error = sum(total_diff)
 
         if total_error < no_of_nodes * max_error:
-            return current_matrix  # results converged
+            return rank_vector  # results converged
 
     # Max iterations crossed but results did not converge
     print('Failed to converge.')
@@ -80,7 +132,7 @@ def calculate_page_rank(graph, weight='weight'):
 
 
 def main():
-    with open(current_dataset_file) as textFile:
+    with open(current_data_set_file) as textFile:
 
         # ---------------------------------- CREATE GRAPH FROM EDGE LIST -------------------------------------------- #
 
@@ -116,19 +168,29 @@ def main():
             node = entry[0]
             for edge in edge_list:
                 if edge[0] == node:
-                    if pr.get(edge[1]) > 0.0010:  # threshold of neighbours
+                    if pr.get(edge[1]) > 0.05:  # threshold of neighbours
                         graph1.add_edge(edge[0], edge[1])
 
         color_map = []  # A list to store the colors for each node
+        labels = {}
         for node1 in graph1.nodes():
-            if pr.get(node1) > 0.0015:
+            labels[node1] = node1
+            if pr.get(node1) > 0.003:
                 color_map.append('blue')  # Color top page rank nodes as blue
             else:
                 color_map.append('green')  # Color rest of the nodes as green
 
-        nx.draw(graph1, node_color=color_map, node_size=[pr.get(v) * 500000 for v in graph1.nodes()], with_labels=True)
+        pos = spring_layout(graph1, k=0.9, iterations=5)
+        nxnodes = nx.draw_networkx_nodes(graph1, pos, linewidths=2, node_color=color_map,
+                                         node_size=[pr.get(v) * 300000 for v in graph1.nodes()], label=True)
+        nxnodes.set_edgecolor('black')
+        nx.draw_networkx_labels(graph1, pos, labels, font_size=14)
+        draw_networkx_edges(graph1, pos)
         plt.show()
         print('-' * 150)
 
 
+# ---------------------------------------------------- DRIVER ------------------------------------------------------- #
+
+create_categories_from_data_set()
 main()
