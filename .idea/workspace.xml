@@ -4,10 +4,7 @@
     <list default="true" id="8720894a-e7d2-4431-911b-4505dd5e38df" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page_rank.py" beforeDir="false" afterPath="$PROJECT_DIR$/page_rank.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/txt.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-Google.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-NotreDame.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki-Vote.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +14,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/page_rank_implementation$cleaner.coverage" NAME="cleaner Coverage Results" MODIFIED="1543407065052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/page_rank_implementation$page_rank.coverage" NAME="page_rank Coverage Results" MODIFIED="1543406434838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/page_rank_implementation$page_rank.coverage" NAME="page_rank Coverage Results" MODIFIED="1543446992424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -37,11 +34,12 @@
     <session id="2083182891">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.3" value="2" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -58,12 +56,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2220" />
+          <entry key="py" value="2584" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2220" />
+          <entry key="Python" value="2584" />
         </counts>
       </usages-collector>
     </session>
@@ -73,21 +71,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/page_rank.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="169" column="35" lean-forward="true" selection-start-line="169" selection-start-column="35" selection-end-line="169" selection-end-column="35" />
+            <state relative-caret-position="237">
+              <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1543407033094" expanded="true" signature="7941:8096" ph="..." />
+                <marker date="1543446992419" expanded="true" signature="8383:8538" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cleaner.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -95,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/labels.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+            <state relative-caret-position="634">
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -104,7 +93,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="102">
               <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="4" />
             </state>
           </provider>
@@ -195,7 +184,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cleaner">
+  <component name="RunManager" selected="Python.page_rank">
     <configuration name="cleaner" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="page-rank-implementation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -246,8 +235,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.cleaner" />
         <item itemvalue="Python.page_rank" />
+        <item itemvalue="Python.cleaner" />
       </list>
     </recent_temporary>
   </component>
@@ -266,21 +255,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="954" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.26190478" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.123931624" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49946752" weight="0.32905138" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50549453" side_tool="true" visible="true" weight="0.2761021" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50793654" side_tool="true" visible="true" weight="0.2761021" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="4" />
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" sideWeight="0.4993895" weight="0.329849" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.4945055" visible="true" weight="0.2761021" />
-      <window_info anchor="bottom" id="Debug" order="9" sideWeight="0.8949939" weight="0.39907193" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.4920635" weight="0.2761021" />
+      <window_info anchor="bottom" id="Debug" order="9" sideWeight="0.89316237" weight="0.39907193" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" />
@@ -299,6 +287,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/page_rank.py</url>
+          <line>186</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/page_rank.py</url>
+          <line>154</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -339,34 +339,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/labels.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaner.py" />
     <entry file="file://$PROJECT_DIR$/data.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="102">
           <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cleaner.py">
+    <entry file="file://$PROJECT_DIR$/labels.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+        <state relative-caret-position="634">
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/page_rank.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="169" column="35" lean-forward="true" selection-start-line="169" selection-start-column="35" selection-end-line="169" selection-end-column="35" />
+        <state relative-caret-position="237">
+          <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1543407033094" expanded="true" signature="7941:8096" ph="..." />
+            <marker date="1543446992419" expanded="true" signature="8383:8538" ph="..." />
           </folding>
         </state>
       </provider>

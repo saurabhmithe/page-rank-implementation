@@ -10,10 +10,10 @@ from networkx import draw_networkx_edges
 maximum_iterations = 150
 
 # (float) damping parameter to make random jumps in case of dead-ends or spider-traps
-beta = 0.85
+beta = 0.45
 
 # (boolean) flag to toggle between personalized and non-personalized page rank
-personalized_page_rank = True
+personalized_page_rank = False  # if you make this false, set custom_category = 'none'
 
 # (dictionary key: node value: personalization) used for personalized page rank
 vector_set = {}
@@ -25,7 +25,11 @@ max_error = 0.000001
 current_data_set_file = "data.txt"
 
 # (string) category for personalized page rank
-custom_category = 'students'
+custom_category = 'none'
+custom = {}
+custom['students'] = {'node_size_multi': 100000, 'top': 10, 'threshold': 0.05}
+custom['none'] = {'node_size_multi': 150000, 'top': 15, 'threshold': 0.01}
+custom['docs'] = {'node_size_multi': 150000, 'top': 15, 'threshold': 0.009}
 
 # -------------------------------------------- DATA-SET OPERATIONS -------------------------------------------------- #
 
@@ -163,12 +167,12 @@ def main():
         # Create the sub-graph to be plotted
         print('Plotting the graph')
         graph1 = nx.DiGraph()
-        to_plot = sorted_page_ranks[0:10]  # take top 10 page rank nodes
+        to_plot = sorted_page_ranks[0:custom[custom_category]['top']]  # take top 10 page rank nodes
         for entry in to_plot:
             node = entry[0]
             for edge in edge_list:
                 if edge[0] == node:
-                    if pr.get(edge[1]) > 0.05:  # threshold of neighbours
+                    if pr.get(edge[1]) > custom[custom_category]['threshold']:  # threshold of neighbours
                         graph1.add_edge(edge[0], edge[1])
 
         color_map = []  # A list to store the colors for each node
@@ -176,19 +180,19 @@ def main():
         for node1 in graph1.nodes():
             labels[node1] = node1
             if pr.get(node1) > 0.003:
-                color_map.append('blue')  # Color top page rank nodes as blue
+                color_map.append('grey')  # Color top page rank nodes as blue
             else:
                 color_map.append('green')  # Color rest of the nodes as green
 
         pos = spring_layout(graph1, k=0.9, iterations=5)
         nxnodes = nx.draw_networkx_nodes(graph1, pos, linewidths=2, node_color=color_map,
-                                         node_size=[pr.get(v) * 300000 for v in graph1.nodes()], label=True)
+                                         node_size=[pr.get(v) * custom[custom_category]['node_size_multi']
+                                                    for v in graph1.nodes()], label=True)
         nxnodes.set_edgecolor('black')
         nx.draw_networkx_labels(graph1, pos, labels, font_size=14)
         draw_networkx_edges(graph1, pos)
         plt.show()
         print('-' * 150)
-
 
 # ---------------------------------------------------- DRIVER ------------------------------------------------------- #
 
